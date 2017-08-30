@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<form>
+    <label for="login">Login</label>
+    <input type="text" id="login">
+
+    <label for="password">Password</label>
+    <input type="text" id="password">
+</form>
+
+<button id="loginButton">log in</button>
+
+<script>
+    function submit(event) {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                login: document.getElementById('login').value,
+                password: document.getElementById('password').value
+            })
+        };
+
+        console.log('test');
+
+        fetch('http://portal.integration.devicevoice.org/rest/v1/authorizations/login', options)
+            .then(function (response) {
+                console.log(response.status);
+                return response.json()
+            })
+            .then(function(json) {
+                console.log(json);
+            });
+    }
+
+    document.getElementById('loginButton').addEventListener('click', submit)
+</script>
+
+</body>
+
+</html>
